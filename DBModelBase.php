@@ -101,8 +101,11 @@ abstract class DB_Model_Base {
 
     public function toDB() {
         $dbValues = [];
+		$whitelist = $this->get_column_ids();
         foreach ($this as $property => $value) {
-            $dbValues[$property] = $value;
+			if(in_array($property, $whitelist)){
+				$dbValues[$property] = $value;
+			}
         }
         return $dbValues;
     }
